@@ -3,15 +3,23 @@
 }
 
 :root { 
-    --text-color: rgb(0, 0, 0);
-    --background: #ececec;
-    --shadows-item: rebeccapurple;
-}
-
-.dark {
     --text-color: rgb(255, 255, 255);
     --background: black;
-    --shadows-item: red;
+    --shadows-item: rgba(255, 0, 0, 0.747);
+    --switch-bg-url: url(./img/sun.svg);
+    --switch-bg-color: rgb(255, 238, 80);
+    --switch-bg-color-hover: rgb(236, 213, 0);
+    --switch-bg-color-outline: rgba(255, 237, 80, 0.651);
+}
+
+.light {
+    --text-color: rgb(0, 0, 0);
+    --background: #ececec;
+    --shadows-item: rgba(102, 51, 153, 0.829);
+    --switch-bg-url: url(./img/moon-stars.svg);
+    --switch-bg-color: rgb(192, 192, 192);
+    --switch-bg-color-hover:rgb(158, 155, 155);
+    --switch-bg-color-outline: rgba(158, 155, 155, 0.493);
 }
 
 body {
@@ -21,7 +29,7 @@ body {
 header {
     text-align: center;
     font-family: 👱‍♀️ ;
-    color: var(--text-color);
+    color: white;
     font-size: small;
     height: 66px;
     width: 100%;
@@ -30,6 +38,7 @@ header {
 
 h1{
     padding-top: 17px;
+
 }
 
 main {
@@ -37,6 +46,56 @@ main {
     height: 772px;
     width: 100%;
     color:var(--text-color);
+}
+
+#switch {
+    position: relative;
+    width: 64px;
+    margin: 0 auto;
+    margin-top: -25px;
+    margin-bottom: 25px;
+    margin-right: 240px;
+}
+
+#switch button {
+    width: 32px;
+    height: 32px;
+    background: var(--switch-bg-color) var(--switch-bg-url) no-repeat center;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--shadows-item);
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    transform: translateY(-50%);
+    animation: slide-back 0.4s forwards;
+}
+
+.light #switch button {
+    animation:  slide-in 0.4s forwards;
+}
+
+#switch button:hover{
+    background-color: var(--switch-bg-color-hover);
+    transition: all ease-in-out 0,5s;
+    outline: 4px solid var(--switch-bg-color-outline);
+}
+
+#switch span{ 
+    display: block;
+    width: 64px;
+    height: 24px;
+    background: var(--switch-bg-color-hover);
+    backdrop-filter: blu(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 9999px;
+    box-shadow: 0 0 20px var(--shadows-item);
+    cursor: pointer;
+}
+
+#switch span:hover{
+    outline: 4px solid var(--switch-bg-color-outline);
 }
 
 .anotacao {
@@ -48,11 +107,14 @@ main {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     box-shadow: 0 0 20px var(--shadows-item);
+    border: none;
+    margin-top: 50px;
 }
 
 .tarefa:hover {
     background-color: rgba(167, 167, 167, 0.719);
     transition: all ease-in-out 0,5s;
+    border: none;
 }
 
 .item, .item_feito {
@@ -97,6 +159,11 @@ main {
     transition: all ease-in-out 0,5s;
 }
 
+.item_feito:hover{
+    background-color: #00ff268e;
+    transition: all ease-in-out 0,5s;
+}
+
 .item_nome {
     flex: 80%;
     padding-top: 16px;
@@ -111,22 +178,24 @@ input {
     font-size: 2rem;
     width: 80%;
     padding-left: 5%;
+    border: none;
 }
 
 button.add {
     width: 20%;
     height: 120px;
     cursor: pointer;
-    background-color: greenyellow;
+    background-color: rgb(255, 238, 80);
     color: black;
     font-weight: bold;
     font-size: 20px;
+    border: none;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 
 .add:hover {
-    background-color: rgba(172, 255, 47, 0.493);
+    background-color: rgba(255, 238, 80, 0.493);
     transition: all ease-in-out 0,5s;
 }
 
@@ -149,6 +218,7 @@ button.add {
     cursor: pointer;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    border: none;
 }
 
 .delete:hover {
@@ -166,10 +236,52 @@ footer {
     width: 100%;
     background-color: blueviolet;
     position: fixed;
+    bottom: 0px;
 }
 
 p{
     color: var(--text-color);
+    padding-top: 3px;
 }
 
-/*botar hover, modo escuro/claro, ajuste a diversas telas, Fixar rodapé*/
+@keyframes slide-in {
+    from{
+        left:0;
+    }
+    to {
+        left: 50%;
+    }
+}
+
+@keyframes slide-back {
+    from{
+        left:50%
+    }
+    to {
+        left: 0;
+    }
+}
+
+@media only screen and (min-width:540px) and (max-width: 768px){
+    #switch{ 
+        margin-right: 50px;
+    }
+}
+
+@media only screen and (min-width:300px) and (max-width:540px) {
+    #switch{ 
+        margin-right: 10px;
+        
+    }
+    button.add{
+        font-size: 10px;
+    }
+
+    .item{
+        width: 250px;
+    } 
+
+    .delete{
+        width: 25px;
+    }
+}
